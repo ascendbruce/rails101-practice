@@ -1,7 +1,7 @@
 Rails101Homework::Application.routes.draw do
   
   resources :boards do
-    resources :posts
+    resources :posts, except: [:index]
   end
 
   root :to => 'boards#index'

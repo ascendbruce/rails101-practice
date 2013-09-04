@@ -5,6 +5,7 @@ class BoardsController < ApplicationController
 
   def show
     if (@board = Board.find_by_id(params[:id]))
+      @posts = @board.posts
       render :show
     else
       redirect_to boards_path, notice: "Board not found"

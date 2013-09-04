@@ -1,12 +1,28 @@
 <h1>Board: <%= @board.name %></h1>
-<h2>Controls</h2>
 <p>
-	<%= link_to "Back", boards_path %> | 
-	<%= link_to "Edit", [:edit, @board] %> | 
-	<%= link_to "Destroy", @board, method: :delete, confirm: "Are you sure?" %>
+  <%= link_to "Back", boards_path %> | 
+  <%= link_to "Edit", [:edit, @board] %> | 
+  <%= link_to "Destroy", @board, method: :delete, confirm: "Are you sure?" %>
 </p>
 
 <hr>
 <h2>Posts</h2>
 
-posts
+<% if @posts.present? %>
+  <% @posts.each do |post| %>
+    <h3><%= post.title %></h3>
+    <p>
+      <%= post.content %>
+    </p>
+    <%= link_to "Edit", [:edit, @board, post] %> | 
+    <%= link_to "Destroy", [@board, post], method: :delete, confirm: "Are you sure?" %>
+  <% end %>
+<% else %>
+  <p>
+    No post yet :(
+  </p>
+<% end %>
+
+<p>
+  <%= link_to "Add Post", new_board_post_path(@board) %>
+</p>

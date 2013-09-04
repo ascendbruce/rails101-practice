@@ -14,8 +14,12 @@
     <p>
       <%= post.content %>
     </p>
-    <%= link_to "Edit", [:edit, @board, post] %> | 
-    <%= link_to "Destroy", [@board, post], :method => :delete, :confirm => "Are you sure?" %>
+    <!-- style? and or && -->
+    <% if user_signed_in? and current_user == post.user %>
+      <%= link_to "Edit", [:edit, @board, post] %> | 
+      <%= link_to "Destroy", [@board, post], :method => :delete, :confirm => "Are you sure?" %>
+    <% end %>
+    <hr>
   <% end %>
 <% else %>
   <p>

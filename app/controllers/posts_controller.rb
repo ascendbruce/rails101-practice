@@ -1,6 +1,9 @@
 class PostsController < ApplicationController
+  before_filter :authenticate_user!, :except => [:show]
+
   before_filter :find_board
-  before_filter :find_post, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_board_post, :only => [:show, :edit]
+  before_filter :find_user_post,  :only => [:update, :destroy]
 
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
@@ -12,7 +15,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = @board.posts.build(params[:post])
+    @post = @board.posts.build(params[:post].merge(:user_id => current_user.id)) # style?
     if @post.save
       redirect_to board_post_path(@board, @post)
     else
@@ -42,8 +45,12 @@ class PostsController < ApplicationController
     @board = Board.find(params[:board_id])
   end
 
-  def find_post
+  def find_board_post
     @post = @board.posts.find(params[:id])
+  end
+
+  def find_user_post
+    @post = current_user.posts.find(params[:id])
   end
 
   def record_not_found

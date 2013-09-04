@@ -3,7 +3,7 @@ Rails101Homework::Application.routes.draw do
   devise_for :users
 
   resources :boards do
-    resources :posts, except: [:index]
+    resources :posts, :except => [:index]
   end
 
   root :to => 'boards#index'

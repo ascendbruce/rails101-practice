@@ -1,12 +1,10 @@
 class PostsController < ApplicationController
-  before_filter :get_board
+  before_filter :find_board
+  before_filter :find_post, :only => [:show, :edit, :update, :destroy]
+
+  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
   def show
-    if (@post = @board.posts.where(:id => params[:id]).first)
-      render :show
-    else
-      redirect_to @board
-    end
   end
 
   def new
@@ -23,40 +21,32 @@ class PostsController < ApplicationController
   end
 
   def edit
-    if (@post = @board.posts.find_by_id(params[:id]))
-      render :edit
-    else
-      redirect_to @board, :notice => "Post not found"
-    end
   end
 
   def update
-    if (post = @board.posts.find_by_id(params[:id]))
-      if post.update_attributes(params[:post])
-        redirect_to [@board, post], :notice => "Post has been updated!"
-      else
-        render :edit
-      end
+    if @post.update_attributes!(params[:post])
+      redirect_to [@board, @post], :notice => "Post has been updated!"
     else
-      redirect_to @board, :notice => "Post not found"
+      render :edit
     end
   end
 
   def destroy
-    if (@post = @board.posts.find_by_id(params[:id]))
-      if @post.destroy
-        redirect_to @board, :notice => "Post has been deleted!"
-      else
-        redirect_to @board ,:notice => "Post cannot be deleted"
-      end
-    else
-      redirect_to @board, :notice => "Post not found"
-    end
+    @post.destroy
+    redirect_to @board, :notice => "Post has been deleted!"
   end
 
   protected
 
-  def get_board
+  def find_board
     @board = Board.find(params[:board_id])
+  end
+
+  def find_post
+    @post = @board.posts.find(params[:id])
+  end
+
+  def record_not_found
+    redirect_to board_path(@board), :notice => "Not found"
   end
 end

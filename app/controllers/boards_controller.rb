@@ -1,15 +1,14 @@
 class BoardsController < ApplicationController
+  before_filter :find_board, :only => [:show, :edit, :update, :destroy]
+
+  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
+
   def index
     @boards = Board.all
   end
 
   def show
-    if (@board = Board.find_by_id(params[:id]))
-      @posts = @board.posts
-      render :show
-    else
-      redirect_to boards_path, :notice => "Board not found"
-    end
+    @posts = @board.posts
   end
 
   def new
@@ -17,7 +16,8 @@ class BoardsController < ApplicationController
   end
 
   def create
-    if (@board = Board.create(params[:board]))
+    @board = Board.create(params[:board])
+    if @board
       redirect_to @board
     else
       render :new
@@ -25,34 +25,29 @@ class BoardsController < ApplicationController
   end
 
   def edit
-    if (@board = Board.find_by_id(params[:id]))
-      render :edit
-    else
-      redirect_to boards_path, :notice => "Board not found"
-    end
   end
 
   def update
-    if (@board = Board.find_by_id(params[:id]))
-      if @board.update_attributes(params[:board])
-        redirect_to @board, :notice => "Board updated"
-      else
-        render :new
-      end
+    if @board.update_attributes!(params[:board])
+      redirect_to @board, :notice => "Board updated"
     else
-      redirect_to boards_path, :notice => "Board not found"
+      render :edit
     end
   end
 
   def destroy
-    if (@board = Board.find_by_id(params[:id]))
-      if @board.destroy
-        redirect_to @board, :notice => "Board updated"
-      else
-        render :new
-      end
-    else
-      redirect_to boards_path, :notice => "Board not found"
-    end
+    @board.destroy
+    redirect_to boards_path, :notice => "Board updated"
+  end
+
+
+  protected
+
+  def find_board
+    @board = Board.find(params[:id])
+  end
+
+  def record_not_found
+    redirect_to boards_path, :notice => "Not found"
   end
 end

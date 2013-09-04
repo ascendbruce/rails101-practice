@@ -8,7 +8,7 @@ class BoardsController < ApplicationController
       @posts = @board.posts
       render :show
     else
-      redirect_to boards_path, notice: "Board not found"
+      redirect_to boards_path, :notice => "Board not found"
     end
   end
 
@@ -28,31 +28,31 @@ class BoardsController < ApplicationController
     if (@board = Board.find_by_id(params[:id]))
       render :edit
     else
-      redirect_to boards_path, notice: "Board not found"
+      redirect_to boards_path, :notice => "Board not found"
     end
   end
 
   def update
     if (@board = Board.find_by_id(params[:id]))
       if @board.update_attributes(params[:board])
-        redirect_to @board, notice: "Board updated"
+        redirect_to @board, :notice => "Board updated"
       else
         render :new
       end
     else
-      redirect_to boards_path, notice: "Board not found"
+      redirect_to boards_path, :notice => "Board not found"
     end
   end
 
   def destroy
     if (@board = Board.find_by_id(params[:id]))
       if @board.destroy
-        redirect_to @board, notice: "Board updated"
+        redirect_to @board, :notice => "Board updated"
       else
         render :new
       end
     else
-      redirect_to boards_path, notice: "Board not found"
+      redirect_to boards_path, :notice => "Board not found"
     end
   end
 end

@@ -11,36 +11,6 @@ class BoardsController < ApplicationController
     @posts = @board.posts
   end
 
-  def new
-    @board = Board.new
-  end
-
-  def create
-    @board = Board.create(params[:board])
-    if @board
-      redirect_to board_path(@board)
-    else
-      render :new
-    end
-  end
-
-  def edit
-  end
-
-  def update
-    if @board.update_attributes!(params[:board])
-      redirect_to board_path(@board), :notice => "Board updated"
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    @board.destroy
-    redirect_to boards_path, :notice => "Board updated"
-  end
-
-
   protected
 
   def find_board

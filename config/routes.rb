@@ -2,8 +2,14 @@ Rails101Homework::Application.routes.draw do
   
   devise_for :users
 
-  resources :boards do
+  resources :boards, :only => [:index, :show] do
     resources :posts, :except => [:index]
+  end
+
+  namespace :admin do
+    resources :boards, :except => [:show] do
+      resources :posts, :only => [:edit, :update, :destroy]
+    end
   end
 
   root :to => 'boards#index'

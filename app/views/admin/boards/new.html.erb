@@ -1,0 +1,7 @@
+<h1>New Board</h1>
+
+<%= form_for @board, :url => admin_boards_path do |f| %> 
+  <%= render "form", :f => f %>
+<% end %>
+
+<%= link_to "Back", admin_boards_path %>

@@ -1,8 +1,8 @@
 <h1>Board: <%= @board.name %></h1>
 <p>
   <%= link_to "Back", boards_path %> | 
-  <%= link_to "Edit", [:edit, @board] %> | 
-  <%= link_to "Destroy", @board, :method => :delete, :confirm => "Are you sure?" %>
+  <%= link_to "Edit", edit_board_path(@board) %> | 
+  <%= link_to "Destroy", board_path(@board), :method => :delete, :confirm => "Are you sure?" %>
 </p>
 
 <hr>
@@ -10,7 +10,7 @@
 
 <% if @posts.present? %>
   <% @posts.each do |post| %>
-    <h3><%= post.title %></h3>
+    <h3><%= link_to post.title, board_post_path(@board, post) %></h3>
     <p>
       <%= post.content %>
     </p>

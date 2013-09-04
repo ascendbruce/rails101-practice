@@ -18,7 +18,7 @@ class BoardsController < ApplicationController
   def create
     @board = Board.create(params[:board])
     if @board
-      redirect_to @board
+      redirect_to board_path(@board)
     else
       render :new
     end
@@ -29,7 +29,7 @@ class BoardsController < ApplicationController
 
   def update
     if @board.update_attributes!(params[:board])
-      redirect_to @board, :notice => "Board updated"
+      redirect_to board_path(@board), :notice => "Board updated"
     else
       render :edit
     end

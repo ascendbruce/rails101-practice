@@ -1,4 +1,6 @@
-<%= form_for([@board, @post]) do |f| %>
+<!-- 這邊也不使用 form_for [@xx, @oo] 的 style -->
+<!-- partial 等片段，有限制縮排嗎？ eg. 總是從第一層開始 -->
+
   <div>
     <%= f.label :title %><br>
     <%= f.text_field :title %>
@@ -12,4 +14,3 @@
   <div>
     <%= f.submit "Save" %>
   </div>
-<% end %>

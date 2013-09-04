@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   def create
     @post = @board.posts.build(params[:post])
     if @post.save
-      redirect_to [@board, @post]
+      redirect_to board_post_path(@board, @post)
     else
       render :new
     end
@@ -25,7 +25,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update_attributes!(params[:post])
-      redirect_to [@board, @post], :notice => "Post has been updated!"
+      redirect_to board_post_path(@board, @post), :notice => "Post has been updated!"
     else
       render :edit
     end
@@ -33,7 +33,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to @board, :notice => "Post has been deleted!"
+    redirect_to board_path(@board), :notice => "Post has been deleted!"
   end
 
   protected

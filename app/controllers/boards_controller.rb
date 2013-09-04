@@ -33,7 +33,7 @@ class BoardsController < ApplicationController
   end
 
   def update
-    if (@board = Board.find_by_id(params[:board][:id]))
+    if (@board = Board.find_by_id(params[:id]))
       if @board.update_attributes(params[:board])
         redirect_to @board, notice: "Board updated"
       else

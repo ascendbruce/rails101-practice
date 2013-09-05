@@ -1,6 +1,10 @@
 <h1>Board: <%= @board.name %></h1>
 <p>
   <%= link_to "Back", boards_path %>
+  <% if current_user && current_user.is_admin? %>
+    | <%= link_to "A-Edit", edit_admin_board_path(@board) %>
+    | <%= link_to "A-Destroy", admin_board_path(@board), :method => :destroy, :confirm => "Are you sure?" %>
+  <% end %>
 </p>
 
 <hr>
@@ -14,8 +18,8 @@
     </p>
     <!-- style? and or && -->
     <% if current_user and current_user == post.user %>
-      <%= link_to "Edit", [:edit, @board, post] %> | 
-      <%= link_to "Destroy", [@board, post], :method => :delete, :confirm => "Are you sure?" %>
+      <%= link_to "Edit", edit_board_post_path(@board, post) %> | 
+      <%= link_to "Destroy", board_post_path(@board, post), :method => :delete, :confirm => "Are you sure?" %>
     <% end %>
     <hr>
   <% end %>

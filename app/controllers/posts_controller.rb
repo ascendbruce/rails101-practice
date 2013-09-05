@@ -15,7 +15,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = @board.posts.build(params[:post].merge(:user_id => current_user.id)) # style?
+    @post = @board.posts.build(params[:post])
+    @post.user_id = current_user.id
     if @post.save
       redirect_to board_post_path(@board, @post)
     else
@@ -27,7 +28,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    if @post.update_attributes!(params[:post])
+    if @post.update_attributes(params[:post])
       redirect_to board_post_path(@board, @post), :notice => "Post has been updated!"
     else
       render :edit

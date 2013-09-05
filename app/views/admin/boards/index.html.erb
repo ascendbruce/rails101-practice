@@ -6,7 +6,7 @@
   </tr>
   <% @boards.each do |board| %>
     <tr>
-      <td><%= link_to board.name, admin_board_path(board) %></td>
+      <td><%= link_to board.name, board_path(board) %></td>
     </tr>
   <% end %>
 </table>

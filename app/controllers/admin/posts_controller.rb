@@ -27,7 +27,7 @@ class Admin::PostsController < Admin::BaseController
   end
 
   def find_post
-    @post = Posts.find(params[:id])
+    @post = Post.find(params[:id])
   end
 
   def record_not_found

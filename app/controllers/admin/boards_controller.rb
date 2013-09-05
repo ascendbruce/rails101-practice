@@ -24,7 +24,7 @@ class Admin::BoardsController < Admin::BaseController
   end
 
   def update
-    if @board.update_attributes!(params[:board]) #TODO: delete the bang !, and similar cases in other file
+    if @board.update_attributes(params[:board])
       redirect_to board_path(@board), :notice => "Board updated"
     else
       render :edit

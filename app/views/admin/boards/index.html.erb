@@ -6,7 +6,7 @@
   </tr>
   <% @boards.each do |board| %>
     <tr>
-      <td><%= link_to board.name, board_path(board) %></td>
+      <td><%= link_to(board.name, board_path(board)) %></td>
     </tr>
   <% end %>
 </table>
@@ -14,5 +14,5 @@
 
 
 <p>
-  <%= link_to "Add Board", new_admin_board_path %>
+  <%= link_to("Add Board", new_admin_board_path) %>
 </p>

@@ -1,5 +1,5 @@
 class Admin::BaseController < ActionController::Base # style?
-  layout 'admin'
+  layout "admin"
   before_filter :authenticate_admin!
 
   protected

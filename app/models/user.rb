@@ -12,6 +12,6 @@ class User < ActiveRecord::Base
   has_many :posts, :dependent => :destroy
 
   def is_admin?
-    self.is_admin # style?: self.attr
+    is_admin
   end
 end

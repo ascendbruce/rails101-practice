@@ -27,6 +27,7 @@
     No post yet :(
   </p>
 <% end %>
+<%= will_paginate @posts %>
 
 <p>
   <%= link_to("Add Post", new_board_post_path(@board)) %>

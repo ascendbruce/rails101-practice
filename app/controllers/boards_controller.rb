@@ -4,11 +4,11 @@ class BoardsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
   def index
-    @boards = Board.all
+    @boards = Board.paginate(:page => params[:page], :per_page => 5)
   end
 
   def show
-    @posts = @board.posts
+    @posts = @board.posts.recent.paginate(:page => params[:page], :per_page => 5)
   end
 
   protected

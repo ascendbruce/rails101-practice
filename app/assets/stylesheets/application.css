@@ -11,3 +11,21 @@
  *= require_self
  *= require_tree .
  */
+
+table, tr, th, td {
+  border: dashed 1px #ccc;
+}
+
+th, td {
+  padding: 5px;
+}
+
+.pagination {
+  margin: 20px 0 20px 0;
+}
+
+.post {
+  border: dashed 1px #ccc;
+  padding: 5px;
+  margin: 5px 0 5px 0;
+}

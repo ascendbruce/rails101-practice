@@ -1,5 +1,9 @@
 <h1>Boards</h1>
 
+<p><%= link_to("Add Board", new_admin_board_path) %></p>
+
+<%= will_paginate @boards %>
+
 <table>
   <tr>
     <th>name</th>
@@ -13,6 +17,4 @@
 
 <%= will_paginate @boards %>
 
-<p>
-  <%= link_to("Add Board", new_admin_board_path) %>
-</p>
+<p><%= link_to("Add Board", new_admin_board_path) %></p>

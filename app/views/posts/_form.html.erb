@@ -10,5 +10,17 @@
 </div>
 
 <div>
+  <%= f.label :upload_image %><br>
+  <%= f.file_field :image %>
+  <%# TODO: 翻了一下techbang repo，好像partial沒有要求不能有instance variables %>
+  <% if @post.image.present? %>
+    <div>
+      原本的<br>
+      <%= image_tag(@post.image.url(:thumb)) %>
+    </div>
+  <% end %>
+</div>
+
+<div>
   <%= f.submit "Save" %>
 </div>

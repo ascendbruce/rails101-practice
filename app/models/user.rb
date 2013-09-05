@@ -10,8 +10,4 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   has_many :posts, :dependent => :destroy
-
-  def is_admin?
-    is_admin
-  end
 end

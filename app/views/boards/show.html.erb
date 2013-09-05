@@ -16,9 +16,8 @@
     <p>
       <%= post.content %>
     </p>
-    <!-- style? and or && -->
-    <% if current_user and current_user == post.user %>
-      <%= link_to("Edit", edit_board_post_path(@board, post)) %> | 
+    <% if current_user && current_user == post.user %>
+      <%= link_to("Edit", edit_board_post_path(@board, post)) %> |
       <%= link_to("Destroy", board_post_path(@board, post), :method => :delete, :confirm => "Are you sure?") %>
     <% end %>
     <hr>

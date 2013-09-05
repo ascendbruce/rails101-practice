@@ -1,13 +1,13 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
 
-<% if current_user and current_user == @post.user %>
-  <%= link_to("Edit", edit_board_post_path(@board, @post)) %> | 
+<% if current_user && current_user == @post.user %>
+  <%= link_to("Edit", edit_board_post_path(@board, @post)) %> |
   <%= link_to("Destroy", board_post_path(@board, @post), :method => :delete, :confirm => "Are you sure?") %> |
 <% end %>
 
-<% if current_user and current_user.is_admin? %>
-  <%= link_to("A-Edit", edit_admin_board_post_path(@board, @post)) %> | 
+<% if current_user && current_user.is_admin? %>
+  <%= link_to("A-Edit", edit_admin_board_post_path(@board, @post)) %> |
   <%= link_to("A-Destroy", admin_board_post_path(@board, @post), :method => :delete, :confirm => "Are you sure?") %> |
 <% end %>
 

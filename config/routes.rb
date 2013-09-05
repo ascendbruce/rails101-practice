@@ -1,5 +1,5 @@
 Rails101Homework::Application.routes.draw do
-  
+
   devise_for :users
 
   resources :boards, :only => [:index, :show] do

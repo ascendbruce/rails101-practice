@@ -1,8 +1,8 @@
 <h1>Board: <%= @board.name %></h1>
 <p>
-  <%= link_to "Back", admin_boards_path %> | 
-  <%= link_to "Edit", edit_admin_board_path(@board) %> | 
-  <%= link_to "Destroy", admin_board_path(@board), :method => :delete, :confirm => "Are you sure?" %>
+  <%= link_to("Back", admin_boards_path) %> | 
+  <%= link_to("Edit", edit_admin_board_path(@board)) %> | 
+  <%= link_to("Destroy", admin_board_path(@board), :method => :delete, :confirm => "Are you sure?") %>
 </p>
 
 <hr>
@@ -10,12 +10,12 @@
 
 <% if @posts.present? %>
   <% @posts.each do |post| %>
-    <h3><%= link_to post.title, admin_board_post_path(@board, post) %></h3>
+    <h3><%= link_to(post.title, admin_board_post_path(@board, post)) %></h3>
     <p>
       <%= post.content %>
     </p>
-    <%= link_to "Edit", edit_admin_board_post_path(@board, post) %> | 
-    <%= link_to "Destroy", admin_board_post_path(@board, post), :method => :delete, :confirm => "Are you sure?" %>
+    <%= link_to("Edit", edit_admin_board_post_path(@board, post)) %> | 
+    <%= link_to("Destroy", admin_board_post_path(@board, post), :method => :delete, :confirm => "Are you sure?") %>
     <hr>
   <% end %>
 <% else %>
@@ -25,5 +25,5 @@
 <% end %>
 
 <p>
-  <%= link_to "Add Post", new_admin_board_post_path(@board) %>
+  <%= link_to("Add Post", new_admin_board_post_path(@board)) %>
 </p>

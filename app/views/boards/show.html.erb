@@ -1,6 +1,6 @@
 <h1>Board: <%= @board.name %></h1>
 <p>
-  <%= link_to "Back", boards_path %>
+  <%= link_to("Back", boards_path) %>
 </p>
 
 <hr>
@@ -8,14 +8,14 @@
 
 <% if @posts.present? %>
   <% @posts.each do |post| %>
-    <h3><%= link_to post.title, board_post_path(@board, post) %></h3>
+    <h3><%= link_to(post.title, board_post_path(@board, post)) %></h3>
     <p>
       <%= post.content %>
     </p>
     <!-- style? and or && -->
     <% if current_user and current_user == post.user %>
-      <%= link_to "Edit", [:edit, @board, post] %> | 
-      <%= link_to "Destroy", [@board, post], :method => :delete, :confirm => "Are you sure?" %>
+      <%= link_to("Edit", [:edit, @board, post]) %> | 
+      <%= link_to("Destroy", [@board, post], :method => :delete, :confirm => "Are you sure?") %>
     <% end %>
     <hr>
   <% end %>
@@ -26,5 +26,5 @@
 <% end %>
 
 <p>
-  <%= link_to "Add Post", new_board_post_path(@board) %>
+  <%= link_to("Add Post", new_board_post_path(@board)) %>
 </p>

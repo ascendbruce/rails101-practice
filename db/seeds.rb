@@ -16,19 +16,9 @@ user_admin = User.new(
 user_admin.is_admin = true
 user_admin.save
 
-
-# create a test user, which is not an admin
-user = User.new(
-  :email => "bruce@gmail.com.tw",
-  :password => "abcd1234",
-  :password_confirmation => "abcd1234"
-)
-user.save
-
-
 # create deafult board
 board = Board.create!(
-  :name => "BBS"
+  :name => "News"
 )
 
 # create default post

@@ -1,6 +1,6 @@
 <h1>Edit Post</h1>
 
-<%= form_for @post, :url => board_post_path(@board, @post), :html => { :mulitpart => true } do |f| %>
+<%= form_for @post, :url => admin_board_post_path(@board, @post), :html => { :mulitpart => true } do |f| %>
   <%= render "form", :f => f, :post => @post %>
 <% end %>
 

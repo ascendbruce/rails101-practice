@@ -22,12 +22,14 @@ set :group, "apps"
 
 default_environment["PATH"] = "/usr/local/rbenv/shims:/usr/local/rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games"
 
-namespace :deploy do
-  desc "restart"
-  task :restart do
-    run "touch #{current_path}/tmp/restart.txt"
-  end
-end
+# namespace :deploy do
+#   desc "restart"
+#   task :restart do
+#     run "touch #{current_path}/tmp/restart.txt"
+#   end
+# end
+
+after 'deploy:restart', 'unicorn:restart'
 
 desc "link database.yml from shared folder"
 after("deploy:finalize_update") do

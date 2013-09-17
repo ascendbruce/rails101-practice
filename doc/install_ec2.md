@@ -280,3 +280,74 @@ ruby-build (提供 `rbenv install`)
 
     before("deploy:assets:precompile") do
 
+## 換上 unicorn
+
+    sudo su -
+    gem i unicorn capistrano-unicorn
+
+## 確認 nginx 啟動
+
+    ps -axu | grep nginx
+
+對照
+
+    more /opt/nginx/logs/nginx.pid
+
+如果正在運行中，幹掉它
+
+    kill -9 <pid>
+
+### 用 init script 啟動 nginx
+雖然可以
+
+    sudo /opt/nginx/sbin/nginx
+    sudo /opt/nginx/sbin/nginx -s stop
+
+來開關 nginx，但透過init script來管還是比較好一點，所以：
+
+1. 到nginx官網找ubuntu的init script範例 [nginx-init-ubuntu](https://github.com/JasonGiedymin/nginx-init-ubuntu/blob/master/nginx)
+2. 修改path (那個init script假設你裝在 `/usr/local/nginx/`，但透過passenger裝的nginx預設在 `/opt/nginx`)
+3. 記得 `PIDSPATH` 也要修改 (否則會無法stop)
+
+## 確認 unicorn 啟動
+
+
+因為unicorn有設定僅限localhost，所以要連到遠端做，我的port設定2007，預設應該是8080
+
+    curl http://localhost:2007
+
+如果正常的話，應該要抓到rails 101的 boards#index
+
+可以對照pid（在 `/home/apps/rails101/shared/pids/unicorn.pid`）
+
+### 用 cap 管理 unicorn
+
+    cap unicorn:stop
+    cap unicorn:start
+
+## nginx設定 - try_file
+
+`try_file` 這行很重要，如果沒寫到的話應該會爆 403 Forbidden (除非還有其他設定錯誤啦...)
+
+最後我是設成這樣
+
+    http {
+      #...
+
+      server {
+        ...
+        try_files $uri @app;
+
+        location @app {
+          proxy_pass http://localhost:2007;
+        }
+      }
+    }
+
+example.com/index.html ($uri = index.html)
+如果 `public/index.html` 存在就會直接回傳，若不存在則會交給 @app (@app 就是 location 所定義的：把它交給unicorn)
+
+example.com/boards/2 ($uri = boards/2)
+因為檔案不存在，所以會交給 @app
+這邊做個小實驗，在 `public/boards/2` 寫成一個text file，再試一次就會發現：nginx直接丟回了那個文字檔
+

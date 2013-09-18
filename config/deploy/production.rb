@@ -30,6 +30,7 @@ default_environment["PATH"] = "/usr/local/rbenv/shims:/usr/local/rbenv/bin:/usr/
 # end
 
 after 'deploy:restart', 'unicorn:restart'
+#after 'deploy:restart', 'unicorn:reload' # when preload_app false
 
 desc "link database.yml from shared folder"
 after("deploy:finalize_update") do
